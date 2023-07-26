@@ -1,10 +1,20 @@
-# Discus-Synthetics
+# [Discus](https://discus.ai/)
+## ⚡ Quick Install
 
-This is a package for generating synthetic datasets to fine-tune LLMs. It uses seed examples, human input, and OpenAI models to generate instructions and instances that can be used to either supplement existing datasets or create completely new datasets.
+`pip install discus`
 
-Review the documentation [here](https://discus.ai/docs/index.html).
+## 📖 Documentation
 
-## Setup
+[https://discus.ai/docs/index.html](https://discus.ai/docs/index.html)
+
+## 🏷 What is Discus
+
+Access to high-quality and large datasets is critical when it comes to fine-tuning LLMs. Discus is a Python library that leverages GPT to generate user guided data to solve this critical problem. 
+
+Keep up with updates [here](https://twitter.com/discuslabs).
+
+## 🚀 Getting started
+
 
 In order to use this package, you need to first install it.
 
@@ -36,8 +46,6 @@ After executing the set_openai_llm function, you will be prompted for input in t
 7: gpt-4-0613
 Select the number of your desired model: 5
 ```
-
-## Usage
 
 ### Generate Instructions
 
@@ -238,3 +246,14 @@ clean_ten_instances = cleaning.n_most_unique_elements(new_instances,10)
 
 clean_threshold_instances = cleaning.elements_below_similarity_threshold(new_instances,0.7)
 ```
+## Features
+
+1. Generate high-quality instances for LLMs for all use cases using GPT
+2. Give high-quality natural language feedback in the console to adapt your generated data to your own needs
+3. Clean your dataset to reduce replicates and thus bias
+## 🙌 Contributing
+
+Discus is a rapidly developing project. We welcome contributions in all forms - bug reports, pull requests and ideas for improving the library.
+
+1. Open an [issue](https://github.com/discus-labs/discus/issues) on Github for bugs and request features.
+2. Grab an open issue, and submit a pull request!
