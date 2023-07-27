@@ -1,4 +1,12 @@
 # [Discus](https://discus.ai/)
+
+<div align="center" style="width:800px">
+	
+![Commit Activity](https://img.shields.io/github/commit-activity/m/discus-labs/discus) ![Stars](https://img.shields.io/github/stars/discus-labs/discus)
+
+</div>
+
+
 ## ⚡ Quick Install
 
 `pip install discus`
