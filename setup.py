@@ -8,5 +8,5 @@ setup(
     author='Discus Founders',
     author_email='founders@discus.ai',
     packages=['discus'],
-    install_requires=['openai','pandas','scikit-learn'],
+    install_requires=['openai','pandas','scikit-learn',"langchain==0.0.190", "chromadb==0.3.25",'tiktoken','glob2'],
 )
