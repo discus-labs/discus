@@ -19,7 +19,7 @@
 
 Access to high-quality and large datasets is critical when it comes to fine-tuning LLMs. Discus is a Python library that leverages GPT to generate user guided data to solve this critical problem. 
 
-Keep up with updates [here](https://twitter.com/discuslabs).
+Keep up with updates on our [twitter](https://twitter.com/discuslabs) or our [discord](https://discord.gg/t6ADqBKrdZ).
 
 ## 🚀 Getting started
 
