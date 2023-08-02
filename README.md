@@ -1,4 +1,4 @@
-# [Discus](https://discus.ai/)
+# [Discus] Our website is currently down!
 
 <div align="center" style="width:800px">
 	
