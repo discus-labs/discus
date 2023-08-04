@@ -1,4 +1,4 @@
-# [Discus] (https://discus.ai)
+# [Discus](https://discus.ai)
 
 <div align="center" style="width:800px">
 	
