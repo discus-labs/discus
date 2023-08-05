@@ -11,6 +11,8 @@
 
 `pip install discus`
 
+for the most recent version please do `pip install discus@git+https://github.com/discus-labs/discus`
+
 ## 📖 Documentation
 
 [https://discus.ai/docs/index.html](https://discus.ai/docs/index.html)
