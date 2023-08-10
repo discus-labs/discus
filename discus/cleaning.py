@@ -3,6 +3,35 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 def n_most_unique_elements(data, n):
+    """
+    Extracts the n most unique elements from a list of text inputs or a DataFrame.
+
+    This function takes either a list of text inputs or a pandas DataFrame with exactly two columns
+    and returns a list of n text inputs with the most unique content based on TF-IDF cosine similarity.
+
+    Parameters:
+    data (list or pd.DataFrame): The input data containing text inputs and optionally corresponding outputs.
+                                If data is a list, it should contain text input strings.
+                                If data is a DataFrame, it must have two columns: text inputs and text outputs.
+    n (int): The number of most unique elements to extract.
+
+    Returns:
+    list or pd.DataFrame: If the input 'data' is a list, returns a list of n most unique text input strings.
+                          If the input 'data' is a DataFrame, returns a DataFrame containing n rows of
+                          most unique text input and output pairs.
+
+    Raises:
+    ValueError: If 'n' is less than or equal to 0.
+    ValueError: If 'data' is not a list or a DataFrame with two columns.
+    ValueError: If 'data' is a DataFrame with incorrect number of columns.
+    ValueError: If the number of text inputs and outputs in the DataFrame is not the same.
+    ValueError: If 'n' is greater than the number of elements in the input data.
+
+    Note:
+    The function calculates TF-IDF cosine similarity between text inputs and outputs. It then sorts the text
+    inputs based on their maximum similarity scores, choosing the n most unique elements. If 'data' is a
+    DataFrame, the function returns a DataFrame containing the selected text input and output pairs.
+    """
     if n <= 0:
         raise ValueError("n must be greater than 0.")
 
@@ -51,6 +80,34 @@ def n_most_unique_elements(data, n):
         return most_unique_elements
 
 def elements_below_similarity_threshold(data, threshold):
+    """
+    Filters elements based on a similarity threshold using TF-IDF cosine similarity.
+
+    This function takes either a list of text inputs or a pandas DataFrame with exactly two columns.
+    It filters and returns elements whose similarity scores with all previous elements are below the specified threshold.
+
+    Parameters:
+    data (list or pd.DataFrame): The input data containing text inputs and optionally corresponding outputs.
+                                If data is a list, it should contain text input strings.
+                                If data is a DataFrame, it must have two columns: text inputs and text outputs.
+    threshold (float): The similarity threshold (exclusive) between 0 and 1. Elements with all similarity scores below
+                       this threshold will be selected.
+
+    Returns:
+    list or pd.DataFrame: If the input 'data' is a list, returns a list of selected text input and output tuples.
+                          If the input 'data' is a DataFrame, returns a DataFrame containing selected
+                          text input and output pairs.
+
+    Raises:
+    ValueError: If 'threshold' is less than or equal to 0 or greater than or equal to 1.
+    ValueError: If 'data' is not a list or a DataFrame with two columns.
+    ValueError: If 'data' is a DataFrame with incorrect number of columns.
+
+    Note:
+    The function calculates TF-IDF cosine similarity between text inputs. It filters elements based on the provided
+    similarity threshold, selecting elements whose similarity scores with all previous elements are below the threshold.
+    If 'data' is a DataFrame, the function returns a DataFrame containing the selected text input and output pairs.
+    """
     if threshold <= 0 or threshold >= 1:
         raise ValueError("threshold must be between 0 and 1 exclusive.")
 

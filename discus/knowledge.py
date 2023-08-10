@@ -10,6 +10,26 @@ import os
 import glob2
 
 def create_vector_store(documents_path,vector_store_path='vector_db',chunks=512,overlap=20):
+    """
+    Create a vector store from text documents using OpenAI embeddings.
+
+    This function reads text documents from a specified path, processes them using OpenAI embeddings,
+    and creates a vector store for efficient text similarity searches using Chroma.
+
+    Parameters:
+    documents_path (str): The path to the directory containing the text documents.
+    vector_store_path (str, optional): The path where the vector store will be saved. Defaults to 'vector_db'.
+    chunks (int, optional): The chunk size in characters for splitting the documents. Defaults to 512.
+    overlap (int, optional): The character overlap between chunks. Defaults to 20.
+
+    Returns:
+    None
+
+    Note:
+    This function sets the OpenAI API key using the 'OPENAI_API_KEY' environment variable from your 'openai_utils' module.
+    It reads text documents from the specified path, splits them into chunks, processes them using OpenAI embeddings,
+    and then creates and persists a Chroma vector store for efficient text similarity searches.
+    """
     os.environ["OPENAI_API_KEY"] = openai_utils.API_KEY
     docs = []
     text_splitter = CharacterTextSplitter(chunk_size=chunks, chunk_overlap=overlap)
@@ -27,11 +47,45 @@ def create_vector_store(documents_path,vector_store_path='vector_db',chunks=512,
     return docsearch, docs
 
 def load_vector_store(vector_store_path):
+    """
+    Load a Chroma vector store from a specified path.
+
+    This function loads a previously created Chroma vector store from the specified path and returns it.
+
+    Parameters:
+    vector_store_path (str): The path where the vector store is saved.
+
+    Returns:
+    Chroma: The loaded Chroma vector store.
+
+    Note:
+    This function sets the OpenAI API key using the 'OPENAI_API_KEY' environment variable from your 'openai_utils' module.
+    It loads the vector store using the provided path and creates an instance of the OpenAIEmbeddings class for embedding.
+    The returned Chroma instance can be used for efficient text similarity searches.
+    """
     os.environ["OPENAI_API_KEY"] = openai_utils.API_KEY
     embeddings = OpenAIEmbeddings()
     return Chroma(persist_directory=vector_store_path,embedding_function=embeddings)
 
 def query_vector_store(vector_db,query):
+    """
+    Query a Chroma vector store for relevant documents and generate a response using OpenAI's chat model.
+
+    This function queries a Chroma vector store using the provided query, retrieves relevant documents,
+    and generates a response to the query using OpenAI's chat model.
+
+    Parameters:
+    vector_db (Chroma): The Chroma vector store instance to be queried.
+    query (str): The query to search for relevant documents and generate a response.
+
+    Returns:
+    str: The generated response to the query.
+
+    Note:
+    This function sets the OpenAI API key using the 'OPENAI_API_KEY' environment variable from your 'openai_utils' module.
+    It queries the Chroma vector store to retrieve relevant documents and uses the provided query to generate a response
+    using OpenAI's chat model. The response is returned as a string.
+    """
     os.environ["OPENAI_API_KEY"] = openai_utils.API_KEY
     docsearch = vector_db.as_retriever(search_type="mmr", search_kwargs={"k": 2})
     docs = docsearch.get_relevant_documents(query)
@@ -66,6 +120,26 @@ def query_vector_store(vector_db,query):
     return text
 
 def complete_instances(inputs, vector_db, instruction = None, max_length=None):
+    """
+    Generate completions for a list of input instances using contextual information and OpenAI's chat model.
+
+    This function takes a list of input instances, retrieves relevant contextual information from a Chroma vector store,
+    and generates completions for each input instance using OpenAI's chat model.
+
+    Parameters:
+    inputs (list): A list of input instances for which completions are to be generated.
+    vector_db (Chroma): The Chroma vector store instance to retrieve contextual information.
+    instruction (str, optional): An additional instruction for generating meaningful completions. Defaults to None.
+    max_length (int, optional): The maximum word count for generated completions. Defaults to None.
+
+    Returns:
+    pd.DataFrame: A pandas DataFrame containing the input instances and their corresponding generated completions.
+
+    Note:
+    This function sets the OpenAI API key using the 'OPENAI_API_KEY' environment variable from your 'openai_utils' module.
+    It retrieves relevant contextual information using the Chroma vector store, generates completions for each input
+    instance using OpenAI's chat model, and returns a DataFrame containing input instances and their completions.
+    """
     os.environ["OPENAI_API_KEY"] = openai_utils.API_KEY
     docsearch = vector_db.as_retriever(search_type="mmr", search_kwargs={"k": 2})
     openai.api_key = openai_utils.API_KEY
@@ -117,7 +191,28 @@ def complete_instances(inputs, vector_db, instruction = None, max_length=None):
 
     return pd.DataFrame(outputs,columns=['input', 'output'])
 
-def generate_prompts(documents_path,instruction=None,max_length=None,chunks=512,overlap=20):
+def generate_prompts(documents_path, instruction=None, max_length=None, chunks=512, overlap=20):
+    """
+    Generate a comprehensive list of prompts based on text documents and OpenAI's chat model.
+
+    This function reads text documents from a specified path, generates prompts based on contextual information,
+    and returns a comprehensive list of prompts that users might ask an LLM using OpenAI's chat model.
+
+    Parameters:
+    documents_path (str): The path to the directory containing the text documents.
+    instruction (str, optional): An additional instruction for generating meaningful prompts. Defaults to None.
+    max_length (int, optional): The maximum word count for generated prompts. Defaults to None.
+    chunks (int, optional): The chunk size in characters for splitting the documents. Defaults to 512.
+    overlap (int, optional): The character overlap between chunks. Defaults to 20.
+
+    Returns:
+    list: A list of generated prompts.
+
+    Note:
+    This function sets the OpenAI API key using the 'OPENAI_API_KEY' environment variable from your 'openai_utils' module.
+    It reads text documents from the specified path, generates prompts based on contextual information, and returns
+    a list of prompts that users might ask an LLM. The prompts are generated using OpenAI's chat model.
+    """
     docs = []
     prompts = []
     openai.api_key = openai_utils.API_KEY
