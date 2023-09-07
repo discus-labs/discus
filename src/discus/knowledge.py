@@ -5,9 +5,10 @@ import discus.openai_utils as openai_utils
 import openai
 from langchain.document_loaders import TextLoader
 import pandas as pd
-
 import os
 import glob2
+
+### needs to be integrated still into the new architecture
 
 def create_vector_store(documents_path,vector_store_path='vector_db',chunks=512,overlap=20):
     """
