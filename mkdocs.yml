@@ -1,0 +1,23 @@
+site_name: Discus  # The name we have defined
+site_url: https://discus.ai
+repo_url: https://github.com/discus-labs/discus
+repo_name: discus-labs/discus
+
+theme:
+  name: 'material'  # Using material theme. There are many other options also
+
+plugins:
+  - search  # To have search functionality on the document
+  - mkdocstrings  # To generate documentation from the code docstrings
+
+nav: # Setting up the navigation. Te below list will be tabs on left panel
+  - Guide:
+    - Introduction: index.md
+    - Getting Started: guide/getting_started.md
+  # - Task Types: 
+  #   - Instances:
+  #   - Instructions: 
+  - Dataset:
+    - Cleaning: dataset/cleaning.md
+  # - Examples:
+  #   - English2Spanish: 

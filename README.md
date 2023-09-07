@@ -19,7 +19,7 @@ for the most recent version please do `pip install discus@git+https://github.com
 
 ## 🏷 What is Discus
 
-Access to high-quality and large datasets is critical when it comes to fine-tuning LLMs. Discus is a Python library that leverages GPT to generate user guided data to solve this critical problem. 
+Access to high-quality and large datasets is critical when it comes to ML testing/evaluation. Discus is a Python library that leverages LLM's to generate user guided data to solve this critical problem. 
 
 Keep up with updates on our [twitter](https://twitter.com/discuslabs) or our [discord](https://discord.gg/t6ADqBKrdZ).
 
@@ -136,94 +136,6 @@ seed_examples = [
 new_instances = instances.generate_instances(seed_examples,20,'Translate from English to Spanish')
 ```
 
-After executing the generate_instances function, you will be prompted for input in the console as shown below.
-
-```bash
-Below are 10 examples of the generated instances:
-1	Input: Good morning, could you please recommend a good restaurant?
-	Output: Buenos días, ¿podrías recomendarme un buen restaurante?
-2	Input: How do I get to the train station from here?
-	Output: ¿Cómo llego a la estación de tren desde aquí?
-3	Input: I would like to order a cheeseburger and fries.
-	Output: Me gustaría pedir una hamburguesa con queso y papas fritas.
-4	Input: What is the weather like today?
-	Output: ¿Cómo está el clima hoy?
-5	Input: Can you help me find a hotel near the city center?
-	Output: ¿Puedes ayudarme a encontrar un hotel cerca del centro de la ciudad?
-6	Input: Excuse me, where can I find a pharmacy?
-	Output: Disculpa, ¿dónde puedo encontrar una farmacia?
-7	Input: Do you have any vegetarian options on the menu?
-	Output: ¿Tienen opciones vegetarianas en el menú?
-8	Input: I'm looking for a gift for my friend's birthday.
-	Output: Estoy buscando un regalo para el cumpleaños de mi amigo(a).
-9	Input: Could you recommend a good book to read?
-	Output: ¿Podrías recomendarme un buen libro para leer?
-10	Input: How much does the ticket cost for the museum?
-	Output: ¿Cuánto cuesta la entrada para el museo?
-If you are satisfied with these instances, press y. Otherwise, press n: n
-Provide some concise feedback to improve the generated instances: make them more related to school
-Below are 10 examples of the generated instances:
-1	Input: Can you recommend a good math tutor?
-	Output: ¿Puedes recomendarme un buen tutor de matemáticas?
-2	Input: What time does the school bus arrive in the morning?
-	Output: ¿A qué hora llega el autobús escolar por la mañana?
-3	Input: I need to buy some school supplies for the new semester.
-	Output: Necesito comprar algunos útiles escolares para el nuevo semestre.
-4	Input: How do you say "book" in Spanish?
-	Output: ¿Cómo se dice "libro" en español?
-5	Input: Can you help me with my homework?
-	Output: ¿Puedes ayudarme con mi tarea?
-6	Input: Where is the library located on campus?
-	Output: ¿Dónde se encuentra la biblioteca en el campus?
-7	Input: What subjects are offered in the school curriculum?
-	Output: ¿Qué asignaturas se ofrecen en el currículo escolar?
-8	Input: I need to schedule a meeting with my teacher.
-	Output: Necesito programar una reunión con mi profesor(a).
-9	Input: How many credits do I need to graduate?
-	Output: ¿Cuántos créditos necesito para graduarme?
-10	Input: What extracurricular activities are available at the school?
-	Output: ¿Qué actividades extracurriculares están disponibles en la escuela?
-If you are satisfied with these instances, press y. Otherwise, press n: y
-Finished Generating Instances
-```
-
-### Transform DataFrame to List of Dictionaries
-
-```bash
-import pandas as pd
-
-data = {
-    'Input': [
-        "Hello, how are you?",
-        "Can you please pass me the salt?",
-        "I love going to the beach during summer.",
-        "Where is the nearest post office?",
-        "What time does the movie start?",
-        "I need to make a reservation for two people.",
-        "Could you recommend a good restaurant?",
-        "How do I get to the train station?",
-        "What's your favorite book?",
-        "I want to learn Spanish."
-    ],
-    'Output': [
-        "¡Hola, ¿cómo estás?",
-        "¿Puedes pasarme la sal, por favor?",
-        "Me encanta ir a la playa durante el verano.",
-        "¿Dónde está la oficina de correos más cercana?",
-        "¿A qué hora comienza la película?",
-        "Necesito hacer una reserva para dos personas.",
-        "¿Podrías recomendarme un buen restaurante?",
-        "¿Cómo llego a la estación de tren?",
-        "¿Cuál es tu libro favorito?",
-        "Quiero aprender español."
-    ]
-}
-
-df = pd.DataFrame(data)
-
-seed_examples = instances.transform_dataframe(df)
-```
-
 ### Clean LLM Datasets
 
 ```bash
@@ -250,15 +162,13 @@ seed_examples = [
 'output' : "Quiero aprender español."}
 ]
 
-new_instances = instances.generate_instances(seed_examples,20,'Translate from English to Spanish')
+my_data = Dataset(generated_data)
+clean_ten_instances = my_data.n_most_unique_elements(10)
 
-clean_ten_instances = cleaning.n_most_unique_elements(new_instances,10)
-
-clean_threshold_instances = cleaning.elements_below_similarity_threshold(new_instances,0.7)
 ```
 ## Features
 
-1. Generate high-quality instances for LLMs for all use cases using GPT
+1. Generate high-quality instructions or instances for LLMs for all use cases using GPT
 2. Give high-quality natural language feedback in the console to adapt your generated data to your own needs
 3. Clean your dataset to reduce replicates and thus bias
 ## 🙌 Contributing
