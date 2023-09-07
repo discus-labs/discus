@@ -65,3 +65,19 @@ discus = Generator(config = "config_file_path")
 generated_data = discus.run()
 ```
 
+--- 
+## Advanced Usage
+
+Achieve better results by providing your model with a seed dataset. 
+
+Seed dataset must be a csv without any extra columns. 
+```python
+discus = Generator(config = "config_file_path", seed_dataset = "csv_file_path")
+generated_data = discus.run()
+```
+---
+## Support
+Discus is a rapidly developing project. We welcome contributions in all forms - bug reports, pull requests and ideas for improving the library.
+
+Open an issue on Github for bugs and request features.
+Grab an open issue, and submit a pull request!
