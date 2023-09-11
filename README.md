@@ -46,7 +46,7 @@ We can now get started. First, create your json following these guidelines:
 config = {
     "task_name": "English2Spanish",
     "task_type": "LLM-Instances",
-    "task_explained": "english to to spanish",
+    "task_explained": "generate english to spanish translation.", # fill in the blank. "you are trying to _____"
     "generated_dataset_name": "eng2spanish.csv",
     "model_provider": "openai",
     "model_name": "gpt-3.5-turbo",

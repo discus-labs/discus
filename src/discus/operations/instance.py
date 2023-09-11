@@ -8,9 +8,6 @@ class Instance:
 
     def generate_prompt(self, seed_dataset: pd.DataFrame = None,  context = None) -> list:
         command = ""
-
-        task_guidelines = self.config.task_explained
-        command += f"{task_guidelines}\n"
         num_instances = self.config.number_of_rows
 
         if seed_dataset is not None:
@@ -54,7 +51,7 @@ class Instance:
 
 
         command += f"Using the above examples and context, {generate_synonym} {num_instances} {adjective_synonym} input/output combos. Format the input/output combos like below:\n\"Input: <input>\"\n\"Output: <output>\"\nSeparate each new input/output with a newline."
-        
+        task_guidelines = self.config.task_explained
         message = []
         if context:
             context_array = context
@@ -62,10 +59,11 @@ class Instance:
         else:
             message = [
                 {"role": "system",
-                 "content": "You are a helpful AI assistant trying to help someone generate input/output used to teach a large-language model."},
+                 "content": "You are a helpful data scientist AI assistant helping generate input/output comvos to teach a large language model. You are trying to " + task_guidelines},
                 {"role": "user", "content": command}
             ]
 
+        print(message)
         return message
             
 
