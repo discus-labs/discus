@@ -9,8 +9,6 @@ class Instruction:
     def generate_prompt(self, seed_dataset: pd.DataFrame = None,  context = None) -> list:
         command = ""
 
-        task_guidelines = self.config.task_explained
-        command += f"{task_guidelines}\n"
         num_instructions = self.config.number_of_rows
 
         if seed_dataset is not None:
@@ -51,6 +49,10 @@ class Instruction:
 
         command += f"Using the above examples, {generate_synonym} {num_instructions} {adjective_synonym} instructions. Format the instructions like \"Instruction: <instruction>\", separating each new instruction with a newline."
         
+
+        task_guidelines = self.config.task_explained
+        command += f"{task_guidelines}\n"
+
         message = []
         if context:
             context_array = context
@@ -58,7 +60,7 @@ class Instruction:
         else:
             message = [
                 {"role": "system",
-                 "content": "You are a helpful AI assistant trying to help someone generate instructions used to teach a large-language model."},
+                 "content": "You are a helpful data scientist AI assistant helping generate instructions to teach a large language model. You are trying to " + task_guidelines},
                 {"role": "user", "content": command}
             ]
         return message

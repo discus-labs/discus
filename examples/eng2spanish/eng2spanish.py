@@ -1,7 +1,7 @@
 import os
 from discus import Generator, Dataset
 
-discus = Generator(config = "/Users/rohankshah/Desktop/discus/tests/eng2spanish/eng2spanish.json")
+discus = Generator(config = "/Users/rohankshah/Desktop/discus/examples/eng2spanish/eng2spanish.json")
 generated_data = discus.run()
 
 gen = Dataset(generated_data)
