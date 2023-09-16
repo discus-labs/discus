@@ -61,6 +61,8 @@ config = {
 To run, import Discus. Then, create a Generator object.
 
 ```python
+from discus import Generator
+
 discus = Generator(config = "config_file_path")
 generated_data = discus.run()
 ```
