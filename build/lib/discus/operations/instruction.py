@@ -2,25 +2,22 @@ import random
 import pandas as pd
 from discus.json.config import DiscusConfig
 
-class Instance:
+class Instruction:
     def __init__(self, config: DiscusConfig) -> None:
         self.config = config
 
     def generate_prompt(self, seed_dataset: pd.DataFrame = None,  context = None) -> list:
         command = ""
-        num_instances = self.config.number_of_rows
+
+        num_instructions = self.config.number_of_rows
 
         if seed_dataset is not None:
             self.seed_dataset = seed_dataset
             seed_examples = self.transform_dataframe(seed_dataset)
-        
-
 
             for i in range(len(seed_examples)):
-                input_text = seed_examples[i]["input"]
-                output_text = seed_examples[i]["output"]
-                command += f"Example Input {i + 1}: {input_text}\n"
-                command += f"Example Output {i + 1}: {output_text}\n"
+                instruction_text = seed_examples[i]["input"]
+                command += f"Example Instruction {i + 1}: {instruction_text}\n"
 
         generate_options = ["create",
                             "produce",
@@ -50,8 +47,12 @@ class Instance:
         adjective_synonym = random.choice(adjective_options)
 
 
-        command += f"Using the above examples and context, {generate_synonym} {num_instances} {adjective_synonym} input/output combos. Format the input/output combos like below:\n\"Input: <input>\"\n\"Output: <output>\"\nSeparate each new input/output with a newline."
+        command += f"Using the above examples, {generate_synonym} {num_instructions} {adjective_synonym} instructions. Format the instructions like \"Instruction: <instruction>\", separating each new instruction with a newline."
+        
+
         task_guidelines = self.config.task_explained
+        command += f"{task_guidelines}\n"
+
         message = []
         if context:
             context_array = context
@@ -59,10 +60,9 @@ class Instance:
         else:
             message = [
                 {"role": "system",
-                 "content": "You are a helpful data scientist AI assistant helping generate input/output comvos to teach a large language model. You are trying to " + task_guidelines},
+                 "content": "You are a helpful data scientist AI assistant helping generate instructions to teach a large language model. You are trying to " + task_guidelines},
                 {"role": "user", "content": command}
             ]
-
         return message
             
 
