@@ -34,22 +34,30 @@ class Generator:
             seed = self._load_data(seed_dataset)
         
         model_name = self.config.model_name
+        model_provider = self.config.model_provider
 
         if os.path.exists(knowledge_base):
             #here is where you call knowledge.py given instructions vs. instsances
             pass
         
+        reponse = []
+
         if self.config.task_type == TaskType.INSTANCES: 
             instance_generator = Instance(self.config)
             prompt = instance_generator.generate_prompt(seed)
-            model = OpenAI(self.config)
-            response = model._openai_generate(prompt = prompt)
 
         if self.config.task_type == TaskType.INSTRUCTIONS:
             instruction_generator = Instruction(self.config)
             prompt = instruction_generator.generate_prompt(seed)
+
+        if model_provider == 'openai':
             model = OpenAI(self.config)
             response = model._openai_generate(prompt = prompt)
+        elif model_provider == 'huggingface':
+            model = HuggingFace(self.config)
+            response = model._hf_generate(prompt = prompt)
+        else:
+            raise ValueError(f"Unsupported model provider. Supported providers are: {list(SupportedModels)}")
 
         if response is None:
             raise ValueError("The data wasn't generated.")

@@ -13,11 +13,20 @@ class OpenAI:
         if os.getenv("OPENAI_API_KEY") is None:
             raise ValueError("OPENAI_API_KEY environment variable not set")
 
-    def _openai_generate(self, prompt):
+    def _openai_generate(self, prompt, context = None):
 
         responses = []
         data = []
-        message = prompt
+
+        if context:
+            context_array = context
+            message = context_array + [{"role": "user", "content": command}]
+        else:
+            message = [
+                {"role": "system",
+                 "content": prompt[0]},
+                {"role": "user", "content": prompt[1]}
+            ]
 
         response = openai.ChatCompletion.create(
             model= self.model_name,

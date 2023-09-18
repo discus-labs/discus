@@ -14,9 +14,9 @@ nav: # Setting up the navigation. Te below list will be tabs on left panel
   - Guide:
     - Introduction: index.md
     - Getting Started: guide/getting_started.md
-  # - Task Types: 
-  #   - Instances:
-  #   - Instructions: 
+   - Supported Models: 
+     - OpenAI:
+     - HuggingFace: 
   - Dataset:
     - Cleaning: dataset/cleaning.md
   # - Examples:
