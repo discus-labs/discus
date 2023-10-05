@@ -51,18 +51,8 @@ class Instruction:
         
 
         task_guidelines = self.config.task_explained
-        command += f"{task_guidelines}\n"
-
-        message = []
-        if context:
-            context_array = context
-            message = context_array + [{"role": "user", "content": command}]
-        else:
-            message = [
-                {"role": "system",
-                 "content": "You are a helpful data scientist AI assistant helping generate instructions to teach a large language model. You are trying to " + task_guidelines},
-                {"role": "user", "content": command}
-            ]
+        
+        message = ["You are a helpful data scientist AI assistant helping generate instructions to teach a large language model. You are trying to " + task_guidelines, command]
         return message
             
 

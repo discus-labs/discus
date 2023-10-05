@@ -3,7 +3,7 @@
     "task_type": "LLM-Instances",
     "task_explained": "english to to spanish",
     "generated_dataset_name": "eng2spanish.csv",
-    "model_provider": "openai",
-    "model_name": "gpt-3.5-turbo",
-    "number_of_rows": "1"
-}
+    "model_provider": "huggingface",
+    "model_name": "tiiuae/falcon-7b-instruct",
+    "number_of_rows": "10"
+} 

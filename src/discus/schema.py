@@ -4,6 +4,7 @@ from discus.json.config import DiscusConfig
 
 class SupportedModels(str, Enum):
     OpenAI = 'openai'
+    HuggingFace = 'huggingface'
 
 class TaskType(str, Enum):
     INSTRUCTIONS = "LLM-Instructions"

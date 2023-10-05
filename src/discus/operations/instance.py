@@ -52,19 +52,9 @@ class Instance:
 
         command += f"Using the above examples and context, {generate_synonym} {num_instances} {adjective_synonym} input/output combos. Format the input/output combos like below:\n\"Input: <input>\"\n\"Output: <output>\"\nSeparate each new input/output with a newline."
         task_guidelines = self.config.task_explained
-        message = []
-        if context:
-            context_array = context
-            message = context_array + [{"role": "user", "content": command}]
-        else:
-            message = [
-                {"role": "system",
-                 "content": "You are a helpful data scientist AI assistant helping generate input/output comvos to teach a large language model. You are trying to " + task_guidelines},
-                {"role": "user", "content": command}
-            ]
-
+        message = ["You are a helpful data scientist AI assistant helping generate input/output comvos to teach a large language model. You are trying to " + task_guidelines, command]
+        
         return message
-            
 
     def transform_dataframe(self, df):
         """
