@@ -11,6 +11,10 @@ Building machine learning models is hard. Discus hopes to alleviate the data pro
 * Use pdfs, csvs, and other forms of unstructured data to help Discus generate your data
 * Clean your dataset to reduce replicates, hallucinations, and bias
 
+## Models Supported
+* OpenAI
+* HuggingFace
+
 ## Resources
 
 [Github](https://github.com/discus-labs/discus): Add an issue to report bugs/request features or give us a star on Github.

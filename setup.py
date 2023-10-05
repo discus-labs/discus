@@ -18,5 +18,7 @@ setup(
         'chromadb==0.3.25',
         'tiktoken',
         'glob2',
+        'torch',
+        'transformers'
     ],
 )
