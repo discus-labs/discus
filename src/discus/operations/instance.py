@@ -55,7 +55,6 @@ class Instance:
         message = ["You are a helpful data scientist AI assistant helping generate input/output comvos to teach a large language model. You are trying to " + task_guidelines, command]
         
         return message
-            
 
     def transform_dataframe(self, df):
         """

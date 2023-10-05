@@ -39,8 +39,8 @@ We can now get started. First, create your json following these guidelines:
 * task_type: the type of data you want to generate. Currently either LLM-Instances or LLM-Instructions
 * task_explained: the specific guidelines of your task.
 * generated_dataset_name: what you want the returned csv to be called.
-* model_provider: the LLM you want to use. Currently only OpenAI.
-* model_name: the exact model from your provider.
+* model_provider: the LLM you want to use. Currently only OpenAI and HuggingFace.
+* model_name: the exact model from your provider. (for example: gpt-3.5-turbo or tiiuae/falcon-7b-instruct)
 * number_of_rows: the number of data points you want to generate/enrich
 
 ```python
