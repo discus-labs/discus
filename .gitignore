@@ -1,4 +1,6 @@
 /.DS_Store
 
 Discus.egg-info/
+
 dist/
+build/
