@@ -36,10 +36,6 @@ class Generator:
         
         model_name = self.config.model_name
         model_provider = self.config.model_provider
-
-        if os.path.exists(knowledge_base):
-            #here is where you call knowledge.py given instructions vs. instsances
-            pass
     
         if self.config.task_type == TaskType.INSTANCES: 
             instance_generator = Instance(self.config)
