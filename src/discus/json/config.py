@@ -1,47 +1,41 @@
 import json
+from typing import Any, Dict
 
 class DiscusConfig:
-    """The class that parses the DiscusConfig."""
-    def __init__(self, config_path):
+    """
+    The class that parses the DiscusConfig.
+    """
+    def __init__(self, config_path: str) -> None:
         self.config_data = self._parse_config(config_path)
+        self._set_attributes()
         
-        # Setting parameters as instance variables
-        try:
-            self.task_name = self.config_data["task_name"]
-        except KeyError:
-            raise ValueError("Task_name doesn't exist")
+    def _set_attributes(self) -> None:
+        """
+        Set instance variables using keys from config data.
+        Raise an error if a key is missing.
+        """
+        required_keys = [
+            "task_name", "task_type", "task_explained",
+            "model_provider", "model_name", 
+            "number_of_rows", "generated_dataset_name"
+        ]
         
-        try:
-            self.task_type = self.config_data["task_type"]
-        except KeyError:
-            raise ValueError("Task_type doesn't exist")
-
-        try:
-            self.task_explained = self.config_data["task_explained"]
-        except KeyError:
-            raise ValueError("Task_explained doesn't exist")
+        optional_keys = [
+            "context_window_length", "embedding_model_provider", "embedding_model_name"
+        ]
         
-        try:
-            self.generated_dataset_name = self.config_data["generated_dataset_name"]
-        except KeyError:
-            raise ValueError("Generated_dataset_name doesn't exist")
+        for key in required_keys:
+            try:
+                setattr(self, key, self.config_data[key])
+            except KeyError:
+                raise ValueError(f"{key} doesn't exist")
+        
+        for key in optional_keys:
+            setattr(self, key, self.config_data.get(key, None))
 
-        try:
-            self.model_provider = self.config_data["model_provider"]
-        except KeyError:
-            raise ValueError("Model_provider doesn't exist")
-
-        try:
-            self.model_name = self.config_data["model_name"]
-        except KeyError:
-            raise ValueError("Model_name doesn't exist")
-
-        try:
-            self.number_of_rows = self.config_data["number_of_rows"]
-        except KeyError:
-            raise ValueError("Number_of_rows doesn't exist")
-
-    def _parse_config(self, config_path):
-        """Parse the JSON config file."""
+    def _parse_config(self, config_path: str) -> Dict[str, Any]:
+        """
+        Parse the JSON config file.
+        """
         with open(config_path, "r") as file:
             return json.load(file)

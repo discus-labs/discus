@@ -1,5 +1,5 @@
 from typing import List
-from discus.schema import SupportedModels, TaskType 
+from discus.schema import SupportedModels, TaskType, SupportedEmbeddingModels
 
 def retrieve_supported_models() -> List[str]:
     """Generate given model providers.
@@ -7,6 +7,13 @@ def retrieve_supported_models() -> List[str]:
     This function retrieves the list of model providers from SupportedModels enum.
     """
     return [enum_member.value for enum_member in SupportedModels]
+
+def retrieve_supported_embedding_models() -> List[str]:
+    """Generate given model providers.
+    
+    This function retrieves the list of embedding model providers from SupportedEmbeddingModels enum.
+    """
+    return [enum_member.value for enum_member in SupportedEmbeddingModels]
 
 def retrieve_task_types() -> List[str]:
     """Generate given task types.
@@ -21,7 +28,7 @@ schema = {
     "title": "Discus Config",
     "description": "The configuration to generate datasets",
     "type": "object",
-    "properties": {
+    "required": {
         "task_name": {
             "type": "string",
             "description": "The name of the task (for example: English2Spanish)",
@@ -51,12 +58,18 @@ schema = {
             "description": "The number of rows to generate",
         },
     },
-    "required": [
-        "task_name",
-        "task_type",
-        "task_explained",
-        "model_provider",
-        "model_name",
-    ],
-    "additionalProperties": False,
+    "knowledge_base": {
+        "context_window_length": {
+            "type": "integer",
+            "description": "The number of tokens the context window can take for the provided model."
+        },
+        "embedding_model_provider": {
+            "enum": retrieve_supported_embedding_models(),
+            "description": "The provider for the embedding model.",
+        },
+        "embedding_model_name": {
+            "type": "string",
+            "description": "The specific model from the given provider to be used for embeddings.",
+        },
+    },
 }

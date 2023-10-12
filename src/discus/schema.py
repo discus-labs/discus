@@ -9,3 +9,7 @@ class SupportedModels(str, Enum):
 class TaskType(str, Enum):
     INSTRUCTIONS = "LLM-Instructions"
     INSTANCES = "LLM-Instances"
+
+class SupportedEmbeddingModels(str, Enum):
+    OpenAI = 'openai'
+    HuggingFace = 'huggingface'
