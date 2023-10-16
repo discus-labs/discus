@@ -11,3 +11,4 @@ __author__ = "Discus Founders"
 from .generator import Generator
 from .datasets.dataset import Dataset
 from .json.config import DiscusConfig
+from .knowledge import Knowledge
