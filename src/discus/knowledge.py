@@ -34,22 +34,26 @@ class Knowledge:
                 content = ""
                 metadata = {}
                 
+                try:
+                    if file_extension == ".txt":
+                        with open(file_path, "r") as file:
+                            content = file.read()
+                    else:
+                        if file_extension == ".pdf":
+                            images = convert_from_path(file_path)
+                            for image in images:
+                                text = pytesseract.image_to_string(image)
+                                content += text
+                        elif file_extension in [".img", ".jpg", ".jpeg", ".png", ".ico"]: 
+                            images = Image.open(file_path)
+                            content = pytesseract.image_to_string(image)
+                        else:
+                            raise IOError
+                except IOError as _:
+                    print(f"{file_path} is unreadable (hint: make sure your knowledge base directory only contains files of type .txt or .pdf")
 
-                if file_extension == ".txt":
-                    with open(file_path, "r") as file:
-                        content = file.read()
-                else:
-                    if file_extension == ".pdf":
-                        images = convert_from_path(file_path)
-                        for image in images:
-                            text = pytesseract.image_to_string(image)
-                            content += text
-                    elif file_extension in [".img", ".jpg", ".jpeg", ".png", ".ico"]: 
-                        images = Image.open(file_path)
-                        content = pytesseract.image_to_string(image)
-                          
-                
-                self.raw_data[root] = (metadata, content)
+                if content != "":
+                    self.raw_data[file_path] = (metadata, content)
 
         return self.raw_data
 
