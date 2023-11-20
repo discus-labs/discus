@@ -1,7 +1,10 @@
 /.DS_Store
 
 Discus.egg-info/
-
+knowledgeTesting/
+discusenv/
+examples/
+__pycache__/
 dist/
 build/
 
